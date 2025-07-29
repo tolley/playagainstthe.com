@@ -1,0 +1,16 @@
+window.onload = () => {
+    // const ws = new WebSocket( 'ws://localhost:8081' );
+    
+    ws.onerror = ( err ) => {
+        console.log( 'in ws.onerror with err = ', err );
+    };
+
+    ws.onopen = ( msg ) => {
+        ws.send( '{}' );
+    };
+
+    ws.onmessage = ( data ) => { 
+        console.log( 'received: ', data );
+    };
+};
+alert( 'loaded wss.js, not sure why' );

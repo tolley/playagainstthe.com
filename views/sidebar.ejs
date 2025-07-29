@@ -1,0 +1,39 @@
+<ul id="sidebar_nav" class="desktop_only">
+    <%# If the user is logged in %>
+    <% if( user_id ) { %>
+        <li>
+            <a class="game_create" href="javascript:showCreateGameModal();">
+                Challenge the .com
+            </a>
+        </li>
+
+        <%# //////// Load the games from the API via ajax /////////////// %>
+
+        <li id="finished_games_li">
+            <a href="/history">Finished Games</a>
+        </li>
+
+        <li class="divider">
+            &nbsp;
+        </li>
+    <% } %>
+
+    <li>
+        <a id="join_queue" href="/dashboard#/play">Join the .com!</a>
+        <a id="exit_queue" href="/" style="display: none;">Leave Queue</a>
+    </li>
+
+    <li class="divider">
+        &nbsp;
+    </li>
+
+    <li>
+        <a href="/">Home</a>
+    </li>
+    <li>
+        <a href="/about">About</a>
+    </li>
+    <li>
+        <a href="/contact">Contact</a>
+    </li>
+</ul>

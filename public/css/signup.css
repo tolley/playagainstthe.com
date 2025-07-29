@@ -1,0 +1,23 @@
+
+form#signup_form {
+    li {
+        width: 320px;
+        margin: 0px 0px 10px 0px;
+    }
+
+    label {
+        float: left;
+    }
+
+    input {
+        float: right;
+    }
+
+    div#signup_submit {
+        float: left;
+        border: solid 1px #333;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 5px;
+    }
+}
