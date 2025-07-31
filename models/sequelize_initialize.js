@@ -1,3 +1,4 @@
+fs = require( 'fs' );
 var Sequelize = require( 'sequelize' );
 
 module.exports = new Sequelize( 
@@ -7,6 +8,12 @@ module.exports = new Sequelize(
 	{
 		host: process.env.MYSQL_HOST,
 		dialect: 'mysql',
-		logging: false
+		logging: false,
+		port: process.env.MYSQL_PORT, 
+		dialectOptions: {
+			ssl: {
+				ca: fs.readFileSync( '../db.pem' )
+			}
+		}
 	}
 );
