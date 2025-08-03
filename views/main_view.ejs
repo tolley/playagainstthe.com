@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">   
+    <meta name="description" content="checkers tic-tac-toe turn-based strategy games online play strategy games at your own pace play against the internet turn-based games with no time limits strategy games against anonymous opponents">
+    <meta name="keywords" content="checkers tic-tac-toe play strategy game at your own pace async online games play against the internet">
+
+    <title>Play Against The .com</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/index.css" media="screen, projection">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.css" media="screen, projection">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/methods.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/dashboard_views/create_game.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="mobile_only hamburger">
+                <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <% if( user_id ) { %>
+                <a id="logout">logout</a>
+            <% } else { %>
+                <a id="login" href="/login">Login</a>
+                <a id="signup" href="/signup">Sign Up</a>
+            <% } %>
+            
+            <h1>
+                PlayAgainstThe<span class="dotcom">.com</span>
+            </h1>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <%- include( 'sidebar.ejs', {user_id: user_id} ) %>
+            </div>
+
+            <div class="content">
+                <%- include( main_content_ejs, {user_id: user_id} ) %>
+
+                <div id="modal_content">
+                    <%# This will hold modal dialogs %>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 My Website</p>
+        </footer>
+    </div>
+
+</body>
+</html>

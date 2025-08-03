@@ -1,0 +1,40 @@
+<script type="text/javascript" src="/js/contact.js"></script>
+
+<h3>Having trouble, or just want to share something?</h3>
+<br />
+
+<div style="float: left; width: 200px;">
+    Are you having a problem? Or maybe you just want to say hi!
+    Let us know here.  Fill out the form
+    to the right, and send us a message!
+</div>
+
+<form method="post" action="/contact" id="contact_me_form">
+    <div class="form_row">
+        <label for="from_name">Your Name:</label>
+        <input type="text" name="from_name" />
+    </div>
+
+    <div class="form_row">
+        <% if( errors && errors["email"] ) { %>
+            <span class="error"><% errors['email'] %></span>
+            <br />
+        <% } %>
+        <label for="from_email">Your Email Address:</label>
+        <input type="text" name="from_email" />
+    </div>
+
+    <div class="form_row_centered">
+        <% if( errors && errors['message'] ) { %>
+            <span class="error"><% errors['message'] %></span>
+            <br />
+        <% } %>
+        <label for="message">Message</label>
+        <textarea name="message"></textarea>
+    </div>
+
+    <div class="form_row_centered">
+        <input type="submit" value="Contact Us" />
+    </div>
+</form>
+

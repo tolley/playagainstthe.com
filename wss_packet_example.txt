@@ -1,0 +1,10 @@
+{
+    game_type: 3,
+    user_id: x,
+    body: {
+        // Whatever the game needs, but this is in the case of the guiniea_pig game
+        action: enum( 'move', 'pass', 'forfeit', 'win' )
+    }
+}
+
+

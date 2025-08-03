@@ -1,0 +1,56 @@
+@media screen and (max-width: 768px) {
+  .mobile_only {
+    display: block !important;
+  }
+
+  .desktop_only {
+    display: none !important;
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    max-width: 100%;
+    padding: 20px;
+    position: absolute;
+    margin: -25px 0px 0px 0px;
+    z-index: 1;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  div#create_game_modal_container {
+    left: 10px;
+  }
+
+  div#checker_board span.board_row {
+    span.board_cell {
+        width: 35px;
+        height: 35px;
+    }
+
+    span.piece_B {
+        background: url(/images/pieces.jpg ) 33px -64px;
+        background-size: 192%;
+    }
+
+    span.king.piece_B {
+        background: url(/images/pieces.jpg ) 0px -64px;
+        background-size: 192%;
+    }
+
+    span.piece_W {
+        background: url(/images/pieces.jpg ) 0 -30px;
+        background-size: 192%;
+    }
+
+    span.king.piece_W {
+        background-size: 192%;
+        background: url(/images/pieces.jpg ) 33px -30px;
+    }
+  }
+}

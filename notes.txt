@@ -1,0 +1,78 @@
+Creating a new game:
+1. Insert a game type into the game_types table.
+
+2. Create a dir in public/js/game_components for the new game type
+
+3. In that dir, create index.js This must export a method which will render the game to 
+    into the element div#game_board. Once the render is complete and the game has been 
+    advanced, plug into any events needed to run the game
+    Ex: document.querySelector( 'button#move' ).addEventListener( 'click', onMoveClick );
+
+4. When a move is made in the game, a packet is sent to the server via WebSocket. 
+    Ex:
+        let packet = generateWSPacket( { action: 'move', game_id: game.id } );
+        ws.send( packet );
+
+5. Create a <game_type>.js file in /game_action_maps.  This must export an object
+    containing named methods
+    Ex:
+        module.exports = {
+            'move': async ( user_id, game ) => {}
+        }
+
+6. Add the new game type to the gameTypeMap in /wss_router.js
+    Ex: <game_type_id>: <action_map>
+
+
+7. Insert a row into the collective_queue table so that the UI will show it
+
+
+
+// This is for playagainstthe.com
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQH928VGSN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQH928VGSN');
+</script>
+
+
+
+
+To Dos:
+Move the WS url (line 6, /public/js/dashboard.js to a .env file or something configurable
+
+GA, SEO, and Ads
+
+Launch plan:
+Setup email addresses (webmaster@playagainstthe.com, admin@playagainstthe.com)
+Setup host and point domain at it (digitalocean?)
+Test that host amongst the family
+Email small list of people and let them play for a bit
+Email larger list of people (linkedin contacts, email address from gmail)
+
+
+
+meta description:
+Turn based strategy games tic-tac-toe checkers play free online against hundreds of players around the world.
+
+meta tags:
+checkers tic-tac-toe free play anytime online opponents all over the world
+
+
+Use at most 2-3 fonts on your site—one for headings, one for body text, and maybe one for accents.
+
+
+CTA: Start a game.  Play a game.
+
+
+
+
+
+
+
+
+

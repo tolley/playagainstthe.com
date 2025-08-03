@@ -1,0 +1,30 @@
+{
+  "name": "patcom",
+  "version": "1.0.0",
+  "description": "A version of the front end of pat.com using express and a templating engine and htmx",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build:jquery": "cp node_modules/jquery/dist/jquery.js public/js/"
+  },
+  "author": "chris tolley",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cookie": "^1.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.0",
+    "nodemailer": "^7.0.3",
+    "sequelize": "^6.37.6",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
+  }
+}
