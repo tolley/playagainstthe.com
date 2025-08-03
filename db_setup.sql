@@ -124,3 +124,10 @@ create trigger collective_queue_insert
 	before insert on collective_queue
 	for each row set new.create_date = now(),
 					new.last_update = now();
+
+
+insert into collective_queue 
+	( name, game_type )
+values
+	( 'Tic Tac Toe', 1 ),
+	( 'Checkers', 2 );

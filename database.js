@@ -1,12 +1,21 @@
 const mysql = require( "mysql2" );
 
 async function connect() {
-    const config = {
+    var config = {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE
     };
+
+    if( process.env.ENV == 'production' ) {
+        config.dialectOptions = {
+            ssl: {
+                // CAUTION: there are better ways to load the certificate, see comments below
+                ca: fs.readFileSync( '/root/mysql_cert.pem'  ).toString()
+            }
+        }
+    }
 
     var connection = false;
 
@@ -15,6 +24,8 @@ async function connect() {
     } catch( err ) {
         console.log( err );
     }
+
+    console.log( 'MySql DB connected' );
 
     return connection;
 }
