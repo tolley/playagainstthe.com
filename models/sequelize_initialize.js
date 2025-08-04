@@ -1,4 +1,8 @@
+var fs = require( 'fs' );
+
 var Sequelize = require( 'sequelize' );
+
+console.log( 'here in sequelize_initialize' );
 
 var sequelizeOpts = {
 	host: process.env.MYSQL_HOST,
@@ -7,10 +11,12 @@ var sequelizeOpts = {
 };
 
 if( process.env.ENV == 'production' ) {
+	var caFile = fs.readFileSync( '/root/mysql_cert.pem'  ).toString();
+	
 	sequelizeOpts.ssl = true;
 	sequelizeOpts.dialectOptions = {
 		ssl: {
-			ca: fs.readFileSync( '/root/mysql_cert.pem'  ).toString()
+			ca: caFile
 		}
 	}
 }

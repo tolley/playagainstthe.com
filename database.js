@@ -1,6 +1,7 @@
 const mysql = require( "mysql2" );
 
 async function connect() {
+    console.log( 'here in database.js' );
     var config = {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
@@ -11,7 +12,6 @@ async function connect() {
     if( process.env.ENV == 'production' ) {
         config.dialectOptions = {
             ssl: {
-                // CAUTION: there are better ways to load the certificate, see comments below
                 ca: fs.readFileSync( '/root/mysql_cert.pem'  ).toString()
             }
         }
