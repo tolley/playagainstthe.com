@@ -5,7 +5,7 @@ create table users (
 	id int unsigned not null auto_increment primary key,
 	username varchar(255) unique default '' comment 'Need to allow nulls cause tokens can be created before the user has had a chance to fill out their profile in the case of 3rd party logins',
 	password varchar(255) default '' comment 'third party logins wont have passwords so we need to allow nulls',
-	email varchar(255) not null,
+	email varchar(255) unique not null,
 	verified_email tinyint(1) default 0 comment 'whether or not the email address has been verified',
 	source varchar(255) not null,
 	source_id varchar(255) default '',
