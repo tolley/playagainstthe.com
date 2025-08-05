@@ -124,14 +124,14 @@ function sendContactMeEmail( fromName, fromEmail, message ) {
 
     let mailOptions = {
         from: process.env.EMAIL_FROM,
-        to: 'chris.tolley@gmail.com',
+        to: process.env.EMAIL_FROM,
         subject: subject,
         html: body
     };
 
     transporter.sendMail( mailOptions, ( error, info ) => {
         if( error ) {
-            console.log( error );
+            console.log( 'Error sending contact us email:', error );
         } else {
             console.log( 'Email sent: ' + info.response );
         }

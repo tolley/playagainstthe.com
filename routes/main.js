@@ -74,4 +74,18 @@ module.exports = function( app ) {
             user_id: req.user_id || false,
         } );
     } );
+
+    app.get( '/signup_success', ( req, res ) => {
+        res.render( 'main_view', {
+            main_content_ejs: 'signup_success.ejs',
+            user_id: req.user_id || false,
+        } );
+    } );
+
+    app.get( '/signup_error', ( req, res ) => {
+        res.render( 'main_view', {
+            main_content_ejs: 'signup_error.ejs',
+            user_id: req.user_id || false,
+        } );
+    } );
 };

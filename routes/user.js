@@ -43,23 +43,18 @@ module.exports = function( app ) {
 
 			try {
 				const newUser = await Users.create( userData );
-				res.send( newUser.dataValues );
 
-				// Send the email address verification email
 				createEmailVerificationToken( newUser.id ).then( ( result ) => {
 					if( result && result.dataValues )
 						sendEmailVerificationEmail( newUser, result.dataValues.token );
 				} );
 			} catch( e ) {
-				const errorMsgs = [];
-				for( let n = 0; n < e.errors?.length; ++n ) {
-					errorMsgs.push( e.errors[n].message );
-				}
-				res.send( {errors: errorMsgs} );
-
-				console.log( 'failed to create new user: ', e );
+				res.redirect( '/signup_error' );
 				res.end();
 			}
+
+			res.redirect( '/signup_success' );
+			res.end();
 		}
     } );
 

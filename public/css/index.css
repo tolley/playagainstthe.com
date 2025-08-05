@@ -88,6 +88,11 @@ div.hamburger a {
   padding: 5px;
 }
 
+/* p {
+  text-indent: 15px;
+  line-height: 2;
+} */
+
 .sidebar {
   width: 250px;
   padding: 20px;
@@ -102,7 +107,8 @@ div.hamburger a {
       list-style: none;
 
       a {
-        color: #E01FD5;      
+        color: #E01FD5;
+        font-size: 14pt;
       }
     }
   }
@@ -217,6 +223,8 @@ div#create_game_modal_container {
   margin: 0 auto;
   padding: 6px;
   width: 430px;
+  font-family: Averta, sans-serif, sans-serif;
+  font-size: 12pt;
 
   div.game_type_link {
     margin: 10px 10px 30px 10px;
@@ -277,6 +285,9 @@ table#tictactoe_board {
 }
 
 span#home {
+  font-family: Averta, sans-serif, sans-serif;
+  font-size: 12pt;
+
   p {
     margin: 10px 0px 25px 0px;
   }
@@ -288,12 +299,14 @@ span#home {
 
 span#about {
   p {
-    font-size: 14pt;
+    font-size: 12pt;
     margin: 10px 0px 10px 0px;
   }
 
   p.indent {
     margin: 0px 0px 10px 30px;
+    font-size: ;
+    font-family: Averta, sans-serif, sans-serif;
   }
 
   h2 {
@@ -313,7 +326,7 @@ span#about {
 
   h3 {
     box-shadow: 2px 5px 10px #8b8181;
-    border-bottom: solid 3px var( --paleorange );
+    border-bottom: solid 1px var( --paleorange );
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: solid 1px var( --paleorange );
@@ -400,37 +413,50 @@ div#checker_board {
   }
 }
 
-form#contact_me_form {
-  min-width: 300px;
-  float: right;
-  border: solid 1px #000;
-  border-radius: 15px;
-  padding: 5px;
+div#contact_me {
+  font-family: font-family: Averta, sans-serif, sans-serif;
 
-  label {
-    float: left;
-  }
-
-  div.form_row {
-    text-align: right;
-    margin: 5px;
-  }
-
-  div.form_row_centered {
-    text-align: center;
+  form#contact_me_form {
     width: 100%;
-    margin: 5px;
-  }
+    border: solid 1px #000;
+    border-radius: 15px;
+    padding: 5px;
 
-  textarea {
-    width: 90%;
-    height: 150px;
-  }
+    label {
+      float: left;
+    }
 
+    div.form_row {
+      text-align: right;
+      margin: 5px;
+    }
+
+    div.form_row_centered {
+      text-align: center;
+      width: 100%;
+      margin: 5px;
+    }
+
+    textarea {
+      width: 90%;
+      height: 150px;
+    }
+
+  }
 }
 
 span#previous_games table {
   min-width: 450px;
+}
+
+span#signup_error {
+  text-indent: 15px;
+  line-height: 2;
+}
+
+span#signup_success {
+  text-indent: 15px;
+  line-height: 2;
 }
 
 div#checker_board > span.board_row:nth-child(odd) > span.board_cell:nth-child(even),
