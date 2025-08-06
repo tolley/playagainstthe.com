@@ -9,6 +9,8 @@ const jwt = require( 'jsonwebtoken' )
 
 const userSockets = wsManager;
 
+// let wssOpts = {};
+
 if( process.env.ENV == 'production' ) {
  
     var server = HttpsServer( {
@@ -16,7 +18,7 @@ if( process.env.ENV == 'production' ) {
         key: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/privkey.pem' )
     } );
 } else {
-    var server = false;
+    var server = null;
 }
 
 // A set to map user sockets to their user data
