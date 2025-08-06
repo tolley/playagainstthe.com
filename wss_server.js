@@ -1,5 +1,7 @@
 const jwt = require( 'jsonwebtoken' )
     ,WebSocket = require( 'ws' )
+    ,fs = require( 'fs' )
+    ,HttpsServer = require( 'https' ).createServer
     ,sequelize = require( './models/sequelize_initialize' )
     ,{ mapAndExecWSPacket } = require( './wss_router' )
     ,wsManager = require( './objects/ws_manager' );
@@ -7,11 +9,22 @@ const jwt = require( 'jsonwebtoken' )
 
 const userSockets = wsManager;
 
+if( process.env.ENV == 'production' ) {
+ 
+    var server = HttpsServer( {
+        cert: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/fullchain.pem' ),
+        key: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/privkey.pem' )
+    } );
+} else {
+    var server = false;
+}
+
 // A set to map user sockets to their user data
 // const userSockets = new Map();
 
 // Create our websocket server configuration
 const wssOpts = {
+    server: server,
     port: process.env.WSS_PORT,
     verifyClient: ( info, next ) => {
         // Get the cookies from the user, there should be
