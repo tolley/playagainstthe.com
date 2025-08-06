@@ -9,68 +9,64 @@ const jwt = require( 'jsonwebtoken' )
 
 const userSockets = wsManager;
 
-// let wssOpts = {};
+var wssOpts = {};
 
 if( process.env.ENV == 'production' ) {
  
-    var server = HttpsServer( {
+    wssOpts.server = HttpsServer( {
         cert: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/fullchain.pem' ),
         key: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/privkey.pem' )
     } );
 } else {
-    var server = null;
+    wssOpts.port = process.env.WSS_PORT
 }
 
 // A set to map user sockets to their user data
 // const userSockets = new Map();
 
 // Create our websocket server configuration
-const wssOpts = {
-    server: server,
-    port: process.env.WSS_PORT,
-    verifyClient: ( info, next ) => {
-        // Get the cookies from the user, there should be
-        // an auth_token jwt cookie
-        const cookies = info.req.headers.cookie;
-        if( ! cookies || cookies.length == 0 ) {
-            next( false );
-            return false;
+wssOpts.verifyClient = ( info, next ) => {
+    // Get the cookies from the user, there should be
+    // an auth_token jwt cookie
+    const cookies = info.req.headers.cookie;
+    if( ! cookies || cookies.length == 0 ) {
+        next( false );
+        return false;
+    }
+    const individualCookies = cookies.split( ';' );
+    var auth_token = false;
+
+    for( cookieStr of individualCookies ) {
+        const cookieParts = cookieStr.split( '=' );
+        if( cookieParts.length < 2 )
+            continue;
+
+        const name = cookieParts[0];
+        const value = cookieParts[1];
+
+        if( name.trimStart() == 'auth_token' ) {
+            auth_token = value;
         }
-        const individualCookies = cookies.split( ';' );
-        var auth_token = false;
+    }
 
-        for( cookieStr of individualCookies ) {
-            const cookieParts = cookieStr.split( '=' );
-            if( cookieParts.length < 2 )
-                continue;
+    // If we don't have a valid auth token, redirect to
+    // an authorized page.
+    if( ! auth_token ) {
+        next( false );
+        return false;
+    }
 
-            const name = cookieParts[0];
-            const value = cookieParts[1];
+    // If we have an auth token, verify it
+    const userData = jwt.verify( auth_token, process.env.AUTH_SECRET_KEY );
 
-            if( name.trimStart() == 'auth_token' ) {
-                auth_token = value;
-            }
-        }
-
-        // If we don't have a valid auth token, redirect to
-        // an authorized page.
-        if( ! auth_token ) {
-            next( false );
-            return false;
-        }
-
-        // If we have an auth token, verify it
-        const userData = jwt.verify( auth_token, process.env.AUTH_SECRET_KEY );
-
-        if( userData && userData.id ) {
-            info.req.user_id = userData.id
-            next( info.req );
-            return true;
-        }
-
-        next( true );
+    if( userData && userData.id ) {
+        info.req.user_id = userData.id
+        next( info.req );
         return true;
     }
+
+    next( true );
+    return true;
 };
 
 const wss = new WebSocket.Server( wssOpts );
