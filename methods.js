@@ -138,6 +138,57 @@ function sendContactMeEmail( fromName, fromEmail, message ) {
     } );
 }
 
+/**
+ * Used to verify the user's data when they log in on a socket
+ * 
+ * @param info Array of info passed in from the calling code
+ * @param method A method to call to chain
+ * @returns bool
+ */
+function verifyClient( info, next ) {
+    // Get the cookies from the user, there should be
+    // an auth_token jwt cookie
+    const cookies = info.req.headers.cookie;
+    if( ! cookies || cookies.length == 0 ) {
+        next( false );
+        return false;
+    }
+    const individualCookies = cookies.split( ';' );
+    var auth_token = false;
+
+    for( cookieStr of individualCookies ) {
+        const cookieParts = cookieStr.split( '=' );
+        if( cookieParts.length < 2 )
+            continue;
+
+        const name = cookieParts[0];
+        const value = cookieParts[1];
+
+        if( name.trimStart() == 'auth_token' ) {
+            auth_token = value;
+        }
+    }
+
+    // If we don't have a valid auth token, redirect to
+    // an authorized page.
+    if( ! auth_token ) {
+        next( false );
+        return false;
+    }
+
+    // If we have an auth token, verify it
+    const userData = jwt.verify( auth_token, process.env.AUTH_SECRET_KEY );
+
+    if( userData && userData.id ) {
+        info.req.user_id = userData.id
+        next( info.req );
+        return true;
+    }
+
+    next( true );
+    return true;
+}
+
 
 module.exports = {
     hasActiveMoveToken, 
@@ -146,6 +197,7 @@ module.exports = {
     createEmailVerificationToken,
     sendEmailVerificationEmail,
     sendContactMeEmail,
+    verifyClient,
 };
 
 
