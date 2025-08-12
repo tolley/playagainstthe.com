@@ -10,7 +10,7 @@ const jwt = require( 'jsonwebtoken' )
 
 const userSockets = wsManager;
 
-function connectSocket( wss, req ) {
+function connectSocket( wss ) {
     wss.on( 'connection', ( ws, req ) => {    
         const userId = req.user_id;
 

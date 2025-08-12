@@ -2,6 +2,7 @@ require( 'dotenv' ).config();
 const express = require('express')
     ,https = require( 'https' )
     ,fs = require( 'fs' )
+    ,WebSocket = require( 'ws' )
     ,{ verifyClient } = require( 'methods' )
     ,cookieParser = require( 'cookie-parser' )
     ,bodyParser = require( 'body-parser' );
@@ -34,8 +35,8 @@ require( './routes/user_details' )( app );
 // });
 
 const options = {
-    key: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/fullchain.pem' ),
-    cert: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/privkey.pem' )
+    cert: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/fullchain.pem' ),
+    key: fs.readFileSync( '/etc/letsencrypt/live/playagainstthe.com/privkey.pem' )
 };
 
 // Start our https server
@@ -55,7 +56,7 @@ const wssOpts = {
 // Load our websocker server and it's routes
 const wss = new WebSocket.Server( wssOpts );
 const { connectSocket } = require( './wss_server.js' );
-connectSocketSocket( wss, req );
+connectSocket( wss );
 
 // Load the cron route.  This needs to be restricted to be
 // only runnable from the crontab
