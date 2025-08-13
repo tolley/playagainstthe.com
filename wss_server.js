@@ -11,8 +11,16 @@ const jwt = require( 'jsonwebtoken' )
 const userSockets = wsManager;
 
 function connectSocket( wss ) {
-    wss.on( 'connection', ( ws, req ) => {    
-        const userId = req.user_id;
+    wss.on( 'connection', ( ws, req ) => {
+        var userId = null;
+
+        if( req.user_id ) {
+           userId = req.user_id;
+        } else if( req.headers.cookie ) {
+           var token = req.headers.cookie.substr( 11 );
+           const userData = jwt.verify( token, process.env.AUTH_SECRET_KEY );
+           userId = userData.id;
+        }
 
         // Store the user's socket each time they login on 
         // a from a socket
@@ -42,9 +50,8 @@ function connectSocket( wss ) {
 
         ws.on( 'message', ( message, request ) => {
             let data = JSON.parse( message.toString() );
-            
             console.log( 'wss_server::onmessage, userid: ' + userId + ' data: ', data );
-            
+
             mapAndExecWSPacket( userId, data );
         } );
 
@@ -83,6 +90,6 @@ function connectSocket( wss ) {
 }
 
 module.exports = {
-    connectSocket: connectSocket, 
+    connectSocket: connectSocket,
     userSockets: userSockets
 };

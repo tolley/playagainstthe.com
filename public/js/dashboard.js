@@ -3,7 +3,7 @@ var collectiveQueues = false;
 var ws = false;
 
 // const websocket_url = process.env.WEBSITE_WS_FULL_URL;
-const websocket_url = 'ws://10.253.54.120:8081';
+const websocket_url = 'wss://playagainstthe.com:8081';
 
 // A mapping of game component objects by game_type
 const gameComponentMap = {
@@ -25,7 +25,7 @@ const dashboardLoad = ( app ) => {
     if( ! collectiveQueues ) {
         $.get( '/collective_queue', ( data ) => {
             collectiveQueues = data;
-            
+
             // Rerender the dashboard as this is a promise
             render();
         } );
@@ -44,14 +44,14 @@ const dashboardLoad = ( app ) => {
             if( urlParts[2] && ! isNaN( urlParts[2] ) )
                 game_id = urlParts[2];
         }
-        
+
         const viewData = {
             gameTypes: gameTypes,
             game_id: game_id,
             collectiveQueues: collectiveQueues
         };
 
-        const view = DashboardRoutes[path];
+               const view = DashboardRoutes[path];
         const container = document.getElementById("dashboard_container");
         while( container.firstChild )
             container.removeChild( container.firstChild );
@@ -82,7 +82,7 @@ const dashboardLoad = ( app ) => {
 if( window.addEventListener ) {
     window.addEventListener( 'load', dashboardLoad, false );
     // window.addEventListener( 'unload', () => { alert( 'unloading 1' ); } );
-} else if( window.attachEvent ) { 
+} else if( window.attachEvent ) {
     window.attachEvent( 'onload', dashboardLoad );
     // window.attachEvent( 'unload', () => { alert( 'unloading 2' ); } );
 }
