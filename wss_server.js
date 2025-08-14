@@ -15,11 +15,19 @@ function connectSocket( wss ) {
         var userId = null;
 
         if( req.user_id ) {
-           userId = req.user_id;
-        } else if( req.headers.cookie ) {
-           var token = req.headers.cookie.substr( 11 );
-           const userData = jwt.verify( token, process.env.AUTH_SECRET_KEY );
-           userId = userData.id;
+            userId = req.user_id;
+        } else if( req.headers?.cookie ) {
+            var parts = req.headers.cookie.split( ' ' );
+            for( var n = 0; n < parts.length; ++n ) {
+                if( parts[n].startsWith( 'auth_token=' ) ) {
+                    var token = parts[n].substr( 11 );
+                }
+            }
+            
+            console.log( 'token = ', token );
+
+            const userData = jwt.verify( token, process.env.AUTH_SECRET_KEY );
+            userId = userData.id;
         }
 
         // Store the user's socket each time they login on 
