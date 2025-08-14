@@ -13,10 +13,14 @@
     <link rel="stylesheet" type="text/css" href="/css/responsive.css" media="screen, projection">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/methods.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/dashboard_views/create_game.js"></script>
+    <% if( env == "production" ) { %>
+        <script type="text/javascript" src="/js/all_public.js"></script>
+    <% } else { %>
+        <script type="text/javascript" src="/js/jquery.js"></script>
+        <script type="text/javascript" src="/js/methods.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
+        <script type="text/javascript" src="/js/dashboard_views/create_game.js"></script>
+    <% } %>
 </head>
 
 <body>
@@ -41,11 +45,11 @@
 
         <div class="main-content">
             <div class="sidebar">
-                <%- include( 'sidebar.ejs', {user_id: user_id} ) %>
+                <%- include( 'sidebar.ejs', {user_id: user_id, env: process.env.ENV} ) %>
             </div>
 
             <div class="content">
-                <%- include( main_content_ejs, {user_id: user_id} ) %>
+                <%- include( main_content_ejs, {user_id: user_id, env: process.env.ENV} ) %>
 
                 <div id="modal_content">
                     <%# This will hold modal dialogs %>

@@ -7,21 +7,24 @@ module.exports = function( app ) {
     app.get( '/', getUserDataFromJWT, (req, res) => {
         res.render( 'main_view', {
             main_content_ejs: 'home.ejs',
-            user_id: req.user_id || false
+            user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     });
 
     app.get( '/dashboard', [getUserDataFromJWT, emailVerified], ( req, res ) => {
         res.render( 'main_view', {
             main_content_ejs: 'dashboard.ejs',
-            user_id: req.user_id || false
+            user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     });
 
     app.get( '/about', getUserDataFromJWT, ( req, res ) => {
         res.render( 'main_view', {
             main_content_ejs: 'about.ejs',
-            user_id: req.user_id || false
+            user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     } );
 
@@ -29,6 +32,7 @@ module.exports = function( app ) {
         res.render( 'main_view', {
             main_content_ejs: 'contact.ejs',
             user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
             errors: {},
         } );
     } );
@@ -63,6 +67,7 @@ module.exports = function( app ) {
         res.render( 'main_view', {
             main_content_ejs: 'contact_result.ejs',
             user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
             errors: [],
         } );
         res.end();
@@ -72,6 +77,7 @@ module.exports = function( app ) {
         res.render( 'main_view', {
             main_content_ejs: 'history.ejs',
             user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     } );
 
@@ -79,6 +85,7 @@ module.exports = function( app ) {
         res.render( 'main_view', {
             main_content_ejs: 'signup_success.ejs',
             user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     } );
 
@@ -86,6 +93,7 @@ module.exports = function( app ) {
         res.render( 'main_view', {
             main_content_ejs: 'signup_error.ejs',
             user_id: req.user_id || false,
+            env: process.env.ENV || 'production',
         } );
     } );
 };

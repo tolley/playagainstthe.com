@@ -4,26 +4,33 @@
     <%# Javascript includes for all of the dashboard "page" objects %>
     <!-- Load each game objects first. These won't be used until later -->
     <!-- <script type="text/javascript" src="/js/game_components/guiniea_pig/index.js"></script> -->
-    
-    <script type="text/javascript" src="/js/game_components/tictactoe/index.js"></script>
 
-    <script type="text/javascript" src="/js/game_components/checkers/checkerboard.js"></script>
-    <script type="text/javascript" src="/js/game_components/checkers/index.js"></script>
+    <% if( env == 'production' ) { %>
+        <script type="text/javascript" src="/js/all_dashboard.js"></script>
+    <% } else { %>
+        <!-- start -->
+        <script type="text/javascript" src="/js/game_components/tictactoe/index.js"></script>
 
-    <!-- Load the dashboard views first, they are each a single method-->
-    <script type="text/javascript" src="/js/dashboard_views/home.js"></script>
-    <script type="text/javascript" src="/js/dashboard_views/game.js"></script>
-    <script type="text/javascript" src="/js/dashboard_views/play.js"></script>
-    
-    <!-- Load the js for /dashboard#/game and /dashboard#/play-->
-    <script type="text/javascript" src="/js/game.js"></script>
-    <script type="text/javascript" src="/js/play.js"></script>
+        <script type="text/javascript" src="/js/game_components/checkers/checkerboard.js"></script>
+        <script type="text/javascript" src="/js/game_components/checkers/index.js"></script>
 
-    <!-- Load the index that contains the url/onload mapping for the router framework-->
-    <script type="text/javascript" src="/js/dashboard_views/index.js"></script>
+        <!-- Load the dashboard views first, they are each a single method-->
+        <script type="text/javascript" src="/js/dashboard_views/home.js"></script>
+        <script type="text/javascript" src="/js/dashboard_views/game.js"></script>
+        <script type="text/javascript" src="/js/dashboard_views/play.js"></script>
+        
+        <!-- Load the js for /dashboard#/game and /dashboard#/play-->
+        <script type="text/javascript" src="/js/game.js"></script>
+        <script type="text/javascript" src="/js/play.js"></script>
 
-    <!-- Load the router framework -->
-    <script type="text/javascript" src="/js/dashboard.js"></script>
+        <!-- Load the index that contains the url/onload mapping for the router framework-->
+        <script type="text/javascript" src="/js/dashboard_views/index.js"></script>
+
+        <!-- Load the router framework -->
+        <script type="text/javascript" src="/js/dashboard.js"></script>
+    <% } %>
+
+    <!-- end -->
 
     <div id="dashboard_notifications"></div>
 

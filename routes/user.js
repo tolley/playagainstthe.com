@@ -15,7 +15,8 @@ module.exports = function( app ) {
 	app.get( '/signup', function( req, res ) {
 		res.render( 'main_view', {
 			main_content_ejs: 'signup.ejs',
-            user_id: req.user_id | false			
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 
@@ -63,7 +64,8 @@ module.exports = function( app ) {
 		// res.render( 'login' );
 		res.render( 'main_view', {
 			main_content_ejs: 'login.ejs',
-            user_id: req.user_id | false
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 
@@ -138,21 +140,24 @@ module.exports = function( app ) {
 	app.get( '/welcome', ( req, res ) => {
 		res.render( 'main_view', {
 			main_content_ejs: 'welcome.ejs',
-            user_id: req.user_id | false
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 
 	app.get( '/verifyemail', getUserDataFromJWT, ( req, res ) => {
 		res.render( 'main_view', {
 			main_content_ejs: 'verifyemail.ejs',
-            user_id: req.user_id | false
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 
 	app.get( '/verified', ( req, res ) => {
 		res.render( 'main_view', {
 			main_content_ejs: 'verified.ejs',
-            user_id: req.user_id | false
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 
@@ -187,7 +192,8 @@ module.exports = function( app ) {
 	app.get( '/verificationemailsent', ( req, res ) => {
 		res.render( 'main_view', {
 			main_content_ejs: 'verificationemailsent.ejs',
-            user_id: req.user_id | false
+            user_id: req.user_id | false,
+			env: process.env.ENV || 'production',
 		} );
 	} );
 }
