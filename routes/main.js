@@ -57,6 +57,7 @@ module.exports = function( app ) {
             res.render( 'main_view', {
                 main_content_ejs: 'contact.ejs',
                 user_id: req.user_id || false,
+                env: process.env.ENV || 'production',
                 errors: errors,
             } );
             res.end();
