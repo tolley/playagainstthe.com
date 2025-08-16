@@ -95,7 +95,7 @@ module.exports = function( app ) {
 
 		const cookieOpts = {
 			httpOnly: true,
-			secure: false,
+			secure: true,
 			sameSite: 'Strict',
 			maxAge: 60 * 60 * 24 * 30,
 			path: '/',
