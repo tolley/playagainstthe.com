@@ -12,24 +12,30 @@ const userSockets = wsManager;
 
 function connectSocket( wss ) {
     wss.on( 'connection', ( ws, req ) => {
-        // The user's authToken shouldn't be here, but the header is
-
         var userId = null;
 
         if( req.user_id ) {
             userId = req.user_id;
-        }
+        } else if( req.headers.cookie ) {
+            // Decode the auth token "manually" here
+            const individualCookies = req.headers.cookie.split( ';' );
+            var auth_token = false;
 
+            for( cookieStr of individualCookies ) {
+                const cookieParts = cookieStr.split( '=' );
+                if( cookieParts.length < 2 )
+                        continue;
 
-        var parts = req.headers.cookie.split( ' ' );
-        var token = false;
-        for( var n = 0; ( n < parts.length) && (!token); ++n ) {
-                if( parts[n].startsWith( 'auth_token=' ) ) {
-                        token = parts[n].substr( 11 );
+                const name = cookieParts[0];
+                const value = cookieParts[1];
+
+                if( name.trimStart() == 'auth_token' ) {
+                    auth_token = value;
                 }
+            }
         }
 
-        const userData = jwt.verify( token, process.env.AUTH_SECRET_KEY );
+        const userData = jwt.verify( auth_token, process.env.AUTH_SECRET_KEY );
         userId = userData.id;
 
         // Store the user's socket each time they login on 
@@ -74,11 +80,7 @@ function connectSocket( wss ) {
         // const toast = { action: 'toast', msg: 'toast is working!' };
         // console.log( JSON.stringify( toast ) );
 
-        // ws.send( JSON.stringify( toast ) );
-
-        // ws.send( `Echo: The server is responding.` );
-
-        const interval = setInterval(() => {
+         const interval = setInterval(() => {
             wss.clients.forEach( ( ws ) => {
                 if( ! ws.isAlive ) {
                     console.log( 'Terminating dead client userId:', ws.userId );
